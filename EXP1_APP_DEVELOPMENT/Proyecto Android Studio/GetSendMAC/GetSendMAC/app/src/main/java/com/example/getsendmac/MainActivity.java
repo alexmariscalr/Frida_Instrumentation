@@ -120,53 +120,6 @@ public class MainActivity extends AppCompatActivity {
         setResponse(response.toString());
     }
 
-    public void postData (URL url) {
-
-
-
-    }
-
-    private void getLocation() {
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            //TASK: API que representa llamadas a métodos asíncronas
-
-            //Recibir una notificación cuando la tarea se realice correctamente
-            public void onComplete(@NonNull Task<Location> task) {
-
-                //Task completada con éxito
-
-                //Iniciamos localización
-                Location location = task.getResult();
-                if (location != null){
-
-                    try {
-                        //Iniciamos geoCoder
-                        Geocoder geocoder = new Geocoder(MainActivity.this,
-                                Locale.getDefault());
-                        //Inicializamos lista de direcciones
-                        List<Address> direcciones = geocoder.getFromLocation(
-                                location.getLatitude(),location.getLongitude(),1
-                        );
-                        //Latitud y longitud a texto
-                        String texto =
-                                "Latitud: " + String.format("%.3f", direcciones.get(0).getLatitude())  + "\n" +
-                                        "Longitud: " + String.format("%.3f", direcciones.get(0).getLongitude()) + "\n" +
-                                        "País: " + direcciones.get(0).getCountryName() + "\n" +
-                                        "Localidad: " + direcciones.get(0).getLocality() + "\n" +
-                                        "Dirección: " + direcciones.get(0).getAddressLine(0);
-                        miUbicacion.setText(texto);
-
-
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
 
 
     @Override
@@ -246,24 +199,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            }
-        });
-
-
-        switch1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Chequeamos permisos
-                if(ActivityCompat.checkSelfPermission(MainActivity.this
-                ,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    //Cuando se da permiso
-                    getLocation();
-                }
-                else {
-                    //Cuando no se da permiso
-                    ActivityCompat.requestPermissions(MainActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
-                }
             }
         });
 

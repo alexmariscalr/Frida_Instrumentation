@@ -17,7 +17,6 @@ class Connection:
 def request(flow: http.HTTPFlow) -> None:
     connection = Connection('N/A', '', '', 'Request', '', '-')
     if flow.request.headers:
-        # Obtener el nombre del paquete de la aplicación que envía la petición
         user_agent = flow.request.headers.get("User-Agent")
         if 'User-Agent' in flow.request.headers and 'Mobile' in user_agent:
             if 'X-Requested-With' in flow.request.headers:
@@ -29,8 +28,6 @@ def request(flow: http.HTTPFlow) -> None:
             connection.app_name = user_agent.split("Package/")[1].split(" ")[0]
             print("Package detected")
         connection.app_name = connection.app_name.replace(";", "-")
-
-    # Obtener la IP y el puerto del cliente que envía la petición
     connection.client = flow.client_conn.address[0] + \
         ":" + str(flow.client_conn.address[1])
     if (flow.server_conn.ip_address):

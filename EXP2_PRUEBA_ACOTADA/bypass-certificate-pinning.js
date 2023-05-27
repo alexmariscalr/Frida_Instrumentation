@@ -1,10 +1,6 @@
 setTimeout(function () {
   Java.perform(function () {
-    //console.log("===");
-    // console.error(
-    //   "* Injecting hooks into common certificate pinning methods *"
-    // );
-    //console.log("===");
+
 
     try {
       var X509TrustManager = Java.use("javax.net.ssl.X509TrustManager");
